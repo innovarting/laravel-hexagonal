@@ -1,6 +1,12 @@
 {
     "name": "innovartingsas/laravel-hexagonal",
     "description": "Hexagonal architecture for Laravel",
+    "keywords": [
+        "laravel",
+        "hexagonal",
+        "structure",
+        "architecture"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -24,5 +30,7 @@
                 "Innovarting\\Hexagonal\\HexagonalServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
