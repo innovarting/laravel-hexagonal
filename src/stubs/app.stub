@@ -1,0 +1,22 @@
+<?php
+
+$app = new NAMESPACE\Application(
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+);
+
+$app->singleton(
+    Illuminate\Contracts\Http\Kernel::class,
+    NAMESPACE\Infrastructure\Http\Kernel::class
+);
+
+$app->singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    NAMESPACE\Infrastructure\Console\Kernel::class
+);
+
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    NAMESPACE\Infrastructure\Exceptions\Handler ::class
+);
+
+return $app;

@@ -1,0 +1,13 @@
+<?php
+
+namespace NAMESPACE\Infrastructure\Console\Commands\ApplicationCommands;
+
+use Illuminate\Routing\Console\MiddlewareMakeCommand as Command;
+
+class MiddlewareMakeCommand extends Command
+{
+    protected function getDefaultNamespace($rootNamespace): string
+    {
+        return "{$rootNamespace}\Infrastructure\Http\Middleware";
+    }
+}

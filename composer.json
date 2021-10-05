@@ -1,0 +1,28 @@
+{
+    "name": "innovartingsas/laravel-hexagonal",
+    "description": "Hexagonal architecture for Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Cifuentes",
+            "email": "cifuenteskevin85@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.54",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Innovarting\\Hexagonal\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Innovarting\\Hexagonal\\HexagonalServiceProvider"
+            ]
+        }
+    }
+}

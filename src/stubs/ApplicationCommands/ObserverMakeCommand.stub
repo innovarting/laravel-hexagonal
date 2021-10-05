@@ -1,0 +1,15 @@
+<?php
+
+namespace NAMESPACE\Infrastructure\Console\Commands\ApplicationCommands;
+
+use Illuminate\Foundation\Console\ObserverMakeCommand as Command;
+
+// use Illuminate\Foundation\Console\RequestMakeCommand
+
+class ObserverMakeCommand extends Command
+{
+    protected function getDefaultNamespace($rootNamespace): string
+    {
+        return "{$rootNamespace}\Infrastructure\Eloquent\Observers";
+    }
+}

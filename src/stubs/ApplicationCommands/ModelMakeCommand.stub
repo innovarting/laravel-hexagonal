@@ -1,0 +1,14 @@
+<?php
+
+namespace NAMESPACE\Infrastructure\Console\Commands\ApplicationCommands;
+
+
+use Illuminate\Foundation\Console\ModelMakeCommand as Command;
+
+class ModelMakeCommand extends Command
+{
+    protected function getDefaultNamespace($rootNamespace): string
+    {
+        return "{$rootNamespace}\Infrastructure\Eloquent\Models";
+    }
+}
