@@ -20,7 +20,7 @@ structure based on **Hexagonal Architecture**.
 Add `HEXAGONAL_NAMESPACE` to `.env` file for custom Namespace, default value is `Hexagonal`
 add `HEXAGONAL_NAMESPACE_FOLDER` to `.env` file for custom `src` Folder, default value is `Core`
 
-The namespace is automatically added to the psr-4 key of the compose.json file.
+The namespace is automatically added to the `psr-4` key of the compose.json file.
 
 ### Todo List
 
