@@ -1,4 +1,5 @@
 # Laravel Hexagonal
+[![Total Downloads][ico-downloads]][link-downloads]
 
 Laravel package that allows modifying the folder structure proposed by Laravel in its initial installation by a
 structure based on **Hexagonal Architecture**.
