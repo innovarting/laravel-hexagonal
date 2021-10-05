@@ -1,4 +1,6 @@
 # Laravel Hexagonal
+
+[![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 Laravel package that allows modifying the folder structure proposed by Laravel in its initial installation by a
@@ -30,3 +32,10 @@ The namespace is automatically added to the `psr-4` key of the compose.json file
 - [ ] Add custom Container Class
 - [ ] Add binding for a CommandBus and Container Class
 
+[ico-version]: https://img.shields.io/packagist/v/innovartingsas/laravel-hexagonal.svg?style=flat-square
+
+[link-downloads]: https://packagist.org/packages/innovartingsas/laravel-hexagonal
+
+[ico-downloads]: https://img.shields.io/packagist/dt/innovartingsas/laravel-hexagonal.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/innovartingsas/laravel-hexagonal
