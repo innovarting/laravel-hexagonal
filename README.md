@@ -6,24 +6,48 @@
 Laravel package that allows modifying the folder structure proposed by Laravel in its initial installation by a
 structure based on **Hexagonal Architecture**.
 
+### Install
+
+```shell
+composer require innovartingsas/laravel-hexagonal --dev
+```
+
+### Implementation
+
+In the root project execute artisan command
+
+```shell
+php artisan hexagonal:install --folder={NAME_FOLDER} --app-namespace={APP_NAMESPACE}
+```
+
+Or use the short form
+
+```shell
+php artisan hexagonal:install -f {NAME_FOLDER} -a {APP_NAMESPACE}
+```
+
+The namespace is automatically added to the `psr-4` key of the compose.json file.
+
+---
+
 ### Estructura de archivos
 
 - Core
     - Application
     - Domain
+        - Entities
+            - Traits
+                - AddProps.php
+                - DeleteProps.php
+                - Serializable.php
+            - BaseEntity.php
+            - EntityId.php
     - Infrastructure
         - Console
         - Exceptions
         - Http
         - Models
         - Providers
-
-### Configurations
-
-Add `HEXAGONAL_NAMESPACE` to `.env` file for custom Namespace, default value is `Hexagonal`
-add `HEXAGONAL_NAMESPACE_FOLDER` to `.env` file for custom `src` Folder, default value is `Core`
-
-The namespace is automatically added to the `psr-4` key of the compose.json file.
 
 ### Todo List
 
