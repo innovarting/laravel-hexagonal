@@ -6,28 +6,41 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Innovarting\Hexagonal\Generators\EntitiesGenerator;
+use JetBrains\PhpStorm\NoReturn;
 
 class HexagonalInstallCommand extends Command
 {
-    static $APPLICATION_FOLDER = 'Application';
-    static $DOMAIN_FOLDER = 'Domain';
-    static $INFRASTRUCTURE_FOLDER = 'Infrastructure';
+    static string $APPLICATION_FOLDER = 'Application';
+    static string $DOMAIN_FOLDER = 'Domain';
+    static string $INFRASTRUCTURE_FOLDER = 'Infrastructure';
 
+    private mixed $nameSpaceFolder;
 
-    protected $signature = 'hexagonal:install';
+    protected $signature = 'hexagonal:install
+        {--a|app-namespace= : Option to specify the application namespace.}
+        {--f|folder= : Option to specify the folder that will be used to store all the architecture }';
 
     protected $description = 'Install all folders architecture and move app content to new namespace';
-    private $nameSpaceFolder;
 
     public function __construct()
     {
         parent::__construct();
-        $this->nameSpaceFolder = config('hexagonal.namespace_folder');
     }
 
-    public function handle()
+    #[NoReturn] public function handle()
     {
-        $nameSpace = config('hexagonal.namespace');
+        $nameSpace = Str::ucfirst($this->option('app-namespace'));
+        $this->nameSpaceFolder = Str::ucfirst($this->option('folder'));
+
+        if (!$nameSpace) {
+            $this->error('Error: Missing "app-namespace" option.');
+            return;
+        }
+
+        if (!$this->nameSpaceFolder) {
+            $this->error('Error: Missing "folder" option.');
+            return;
+        }
 
         $appOriginalPath = base_path('config/app.php');
         $content = file_get_contents($appOriginalPath);
@@ -37,47 +50,45 @@ class HexagonalInstallCommand extends Command
 
         File::put($appOriginalPath, $content);
 
-        if ($this->nameSpaceFolder) {
-            if (!file_exists(base_path($this->nameSpaceFolder))) {
-                $this->info('Create Namespace folder into: ' . base_path());
-                File::makeDirectory(base_path($this->nameSpaceFolder));
-            }
-
-            $this->info("Creating Application folder structure");
-            $this->createFolder(self::$APPLICATION_FOLDER);
-            $this->info("Finished");
-
-            $this->info("Creating Domain folder structure");
-            $this->createFolder(self::$DOMAIN_FOLDER);
-            $this->info("Finished");
-
-            $this->info("Creating Infrastructure folder structure");
-            $this->createFolder(self::$INFRASTRUCTURE_FOLDER);
-            $this->info("Finished");
-
-            $this->info("Creating Application files structure");
-            $this->crateApplicationFile();
-            $this->info("Finished");
-
-            $this->info("Coping App Folders to new NameSpace files structure");
-            $this->copyAppFolderToNameSpace();
-            $this->info("Finished");
-
-            $this->info("Copy Commands for artisan laravel commands");
-            $this->copyApplicationCommands();
-            $this->info("Finished");
-
-            $this->info("Copy app stub file");
-            $this->editAppFile();
-            $this->editComposerFile($nameSpace);
-            $this->info("Finished");
-
-            $this->info('Create domain entities structure...');
-            new EntitiesGenerator($this->nameSpaceFolder);
-            $this->info("Finished");
-
-            exec('composer dump-autoload', $output);
+        if (!file_exists(base_path($this->nameSpaceFolder))) {
+            $this->info('Create Namespace folder into: ' . base_path());
+            File::makeDirectory(base_path($this->nameSpaceFolder));
         }
+
+        $this->info("Creating Application folder structure");
+        $this->createFolder(self::$APPLICATION_FOLDER);
+        $this->info("Finished");
+
+        $this->info("Creating Domain folder structure");
+        $this->createFolder(self::$DOMAIN_FOLDER);
+        $this->info("Finished");
+
+        $this->info("Creating Infrastructure folder structure");
+        $this->createFolder(self::$INFRASTRUCTURE_FOLDER);
+        $this->info("Finished");
+
+        $this->info("Creating Application files structure");
+        $this->crateApplicationFile();
+        $this->info("Finished");
+
+        $this->info("Coping App Folders to new NameSpace files structure");
+        $this->copyAppFolderToNameSpace();
+        $this->info("Finished");
+
+        $this->info("Copy Commands for artisan laravel commands");
+        $this->copyApplicationCommands();
+        $this->info("Finished");
+
+        $this->info("Copy app stub file");
+        $this->editAppFile();
+        $this->editComposerFile($nameSpace);
+        $this->info("Finished");
+
+        $this->info('Create domain entities structure...');
+        new EntitiesGenerator($this->nameSpaceFolder);
+        $this->info("Finished");
+
+        exec('composer dump-autoload', $output);
     }
 
     private function copyAppFolderToNameSpace()
