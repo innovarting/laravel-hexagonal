@@ -15,6 +15,7 @@ class HexagonalInstallCommand extends Command
     static string $INFRASTRUCTURE_FOLDER = 'Infrastructure';
 
     private mixed $nameSpaceFolder;
+    private mixed $nameSpace;
 
     protected $signature = 'hexagonal:install
         {--a|app-namespace= : Option to specify the application namespace.}
@@ -29,10 +30,10 @@ class HexagonalInstallCommand extends Command
 
     #[NoReturn] public function handle()
     {
-        $nameSpace = Str::ucfirst($this->option('app-namespace'));
+        $this->nameSpace = Str::ucfirst($this->option('app-namespace'));
         $this->nameSpaceFolder = Str::ucfirst($this->option('folder'));
 
-        if (!$nameSpace) {
+        if (!$this->nameSpace) {
             $this->error('Error: Missing "app-namespace" option.');
             return;
         }
@@ -45,7 +46,7 @@ class HexagonalInstallCommand extends Command
         $appOriginalPath = base_path('config/app.php');
         $content = file_get_contents($appOriginalPath);
         $search = '/\bApp\b\\\\/';
-        $replace = config('hexagonal.namespace') . '\\' . self::$INFRASTRUCTURE_FOLDER . '\\';
+        $replace = $this->nameSpace . '\\' . self::$INFRASTRUCTURE_FOLDER . '\\';
         $content = preg_replace($search, $replace, $content);
 
         File::put($appOriginalPath, $content);
@@ -81,7 +82,7 @@ class HexagonalInstallCommand extends Command
 
         $this->info("Copy app stub file");
         $this->editAppFile();
-        $this->editComposerFile($nameSpace);
+        $this->editComposerFile($this->nameSpace);
         $this->info("Finished");
 
         $this->info('Create domain entities structure...');
@@ -109,7 +110,7 @@ class HexagonalInstallCommand extends Command
                 // File::copyDirectory($directory, $this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
                 $content = $file->getContents();
 
-                $replace = config('hexagonal.namespace') . '\\' . self::$INFRASTRUCTURE_FOLDER;
+                $replace = $this->nameSpace . '\\' . self::$INFRASTRUCTURE_FOLDER;
                 $content = preg_replace('/\bApp\b/', $replace, $content);
                 File::put($file, $content);
                 $bar->advance();
@@ -135,7 +136,7 @@ class HexagonalInstallCommand extends Command
         if (!file_exists($applicationFile)) {
             $content = file_get_contents($stubApplicationFile);
             $search = " /\{NAMESPACE\}.*/";
-            $replace = config('hexagonal.namespace') . ';';
+            $replace = $this->nameSpace . ';';
             $content = preg_replace($search, $replace, $content);
             File::put($applicationFile, $content);
         }
@@ -147,7 +148,7 @@ class HexagonalInstallCommand extends Command
         $stubAppFile = __DIR__ . '/../../stubs/app.stub';
         $content = file_get_contents($stubAppFile);
         $search = "/NAMESPACE/";
-        $replace = config('hexagonal.namespace');
+        $replace = $this->nameSpace;
         $content = preg_replace($search, $replace, $content);
 
         File::put($appOriginalPath, $content);
@@ -188,7 +189,7 @@ class HexagonalInstallCommand extends Command
             }
 
             $content = $commandFile->getContents();
-            $replace = config('hexagonal.namespace');
+            $replace = $this->nameSpace;
             $content = preg_replace('/\bNAMESPACE\b/', $replace, $content);
             File::put($newFile, $content);
         }
