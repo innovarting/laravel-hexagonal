@@ -1,0 +1,35 @@
+<?php
+
+namespace NAMESPACE\Domain\Entities\Traits;
+
+trait Serializable
+{
+    public function toArray(): array
+    {
+        $array = get_object_vars($this);
+        unset($array['_parent'], $array['_index']);
+        array_walk_recursive($array, function (&$property) {
+            if (is_object($property) && method_exists($property, 'toArray')) {
+                $property = $property->toArray();
+            } else if (is_object($property) && method_exists($property, 'value')) {
+                $property = $property->value();
+            }
+        });
+
+        $this->transformKeys($array);
+        return $array;
+    }
+
+    private function transformKeys(&$array)
+    {
+        foreach (array_keys($array) as $key):
+            $value = &$array[$key];
+            unset($array[$key]);
+
+            $transformedKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', ltrim($key, '!')));
+            if (is_array($value)) $this->transformKeys($value);
+            $array[$transformedKey] = $value;
+            unset($value);
+        endforeach;
+    }
+}

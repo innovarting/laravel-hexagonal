@@ -1,0 +1,15 @@
+<?php
+
+namespace NAMESPACE\Domain\Entities;
+
+class EntityId
+{
+    public function __construct(private string $id)
+    {
+    }
+
+    public function value(): string
+    {
+        return $this->id;
+    }
+}

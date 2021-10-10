@@ -1,0 +1,10 @@
+<?php
+
+
+namespace NAMESPACE\Application\Contracts\Bus;
+
+
+interface Container
+{
+    public function make($class): object;
+}

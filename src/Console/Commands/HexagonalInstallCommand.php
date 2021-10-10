@@ -4,6 +4,8 @@ namespace Innovarting\Hexagonal\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Innovarting\Hexagonal\Generators\EntitiesGenerator;
 
 class HexagonalInstallCommand extends Command
 {
@@ -26,7 +28,6 @@ class HexagonalInstallCommand extends Command
     public function handle()
     {
         $nameSpace = config('hexagonal.namespace');
-        File::deleteDirectory(base_path($this->nameSpaceFolder));
 
         $appOriginalPath = base_path('config/app.php');
         $content = file_get_contents($appOriginalPath);
@@ -42,49 +43,69 @@ class HexagonalInstallCommand extends Command
                 File::makeDirectory(base_path($this->nameSpaceFolder));
             }
 
-            $this->info("Creating folder structure");
+            $this->info("Creating Application folder structure");
             $this->createFolder(self::$APPLICATION_FOLDER);
+            $this->info("Finished");
+
+            $this->info("Creating Domain folder structure");
             $this->createFolder(self::$DOMAIN_FOLDER);
+            $this->info("Finished");
+
+            $this->info("Creating Infrastructure folder structure");
             $this->createFolder(self::$INFRASTRUCTURE_FOLDER);
+            $this->info("Finished");
 
+            $this->info("Creating Application files structure");
             $this->crateApplicationFile();
+            $this->info("Finished");
+
+            $this->info("Coping App Folders to new NameSpace files structure");
             $this->copyAppFolderToNameSpace();
+            $this->info("Finished");
 
-            //Copy Commands for artisan laravel commands
+            $this->info("Copy Commands for artisan laravel commands");
             $this->copyApplicationCommands();
+            $this->info("Finished");
 
-            //Copy app stub file
+            $this->info("Copy app stub file");
             $this->editAppFile();
             $this->editComposerFile($nameSpace);
+            $this->info("Finished");
 
-            exec('composer dump-autoload');
+            $this->info('Create domain entities structure...');
+            new EntitiesGenerator($this->nameSpaceFolder);
+            $this->info("Finished");
+
+            exec('composer dump-autoload', $output);
         }
     }
 
     private function copyAppFolderToNameSpace()
     {
-        File::copyDirectory(app_path(), $this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
+        if (!Str::contains(app_path(), $this->nameSpaceFolder)) {
+            File::copyDirectory(app_path(), $this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
 
-        $allFiles = File::allFiles($this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
-        $files = count($allFiles);
+            $allFiles = File::allFiles($this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
+            $files = count($allFiles);
 
-        $bar = $this->output->createProgressBar($files);
-        $bar->setFormat("<fg=yellow>%message%</>\n %current%/%max% [%bar%] %percent%%");
-        $bar->setMessage('Start Copy Folders into namespace');
-        $bar->start();
+            $bar = $this->output->createProgressBar($files);
+            $bar->setFormat("<fg=yellow>%message%</>\n %current%/%max% [%bar%] %percent%%");
+            $bar->setMessage('Start Copy Folders into namespace');
+            $bar->start();
 
-        foreach ($allFiles as $file) {
-            $bar->setMessage("Editing: " . $file->getFilename());
-            // File::copyDirectory($directory, $this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
-            $content = $file->getContents();
+            foreach ($allFiles as $file) {
+                $bar->setMessage("Editing: " . $file->getFilename());
+                // File::copyDirectory($directory, $this->nameSpaceFolder . '/' . self::$INFRASTRUCTURE_FOLDER);
+                $content = $file->getContents();
 
-            $replace = config('hexagonal.namespace') . '\\' . self::$INFRASTRUCTURE_FOLDER;
-            $content = preg_replace('/\bApp\b/', $replace, $content);
-            File::put($file, $content);
-            $bar->advance();
+                $replace = config('hexagonal.namespace') . '\\' . self::$INFRASTRUCTURE_FOLDER;
+                $content = preg_replace('/\bApp\b/', $replace, $content);
+                File::put($file, $content);
+                $bar->advance();
+            }
+
+            $bar->finish();
         }
-
-        $bar->finish();
     }
 
     private function createFolder($folder): void
@@ -97,7 +118,6 @@ class HexagonalInstallCommand extends Command
 
     private function crateApplicationFile(): void
     {
-        $this->info("Creating Application . php file into namespace");
         $applicationFile = base_path('/' . $this->nameSpaceFolder . '/' . '/Application.php');
         $stubApplicationFile = __DIR__ . '/../../stubs/Application.stub';
 

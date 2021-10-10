@@ -1,0 +1,11 @@
+<?php
+
+namespace NAMESPACE\Application\Contracts\Bus;
+
+use NAMESPACE\Application\Contracts\Command;
+use NAMESPACE\Domain\Entities\BaseEntity;
+
+interface CommandBus
+{
+    public function execute(Command $command): BaseEntity|array;
+}

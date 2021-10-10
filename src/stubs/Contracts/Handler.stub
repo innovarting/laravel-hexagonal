@@ -1,0 +1,10 @@
+<?php
+
+namespace NAMESPACE\Application\Contracts;
+
+use NAMESPACE\Domain\Entities\BaseEntity;
+
+interface Handler
+{
+    public function __invoke(Command $command): BaseEntity|array;
+}

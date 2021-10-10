@@ -1,0 +1,13 @@
+<?php
+
+namespace NAMESPACE\Domain\Entities\Traits;
+
+trait DeleteProps
+{
+    public function deleteProps(array $props): void
+    {
+        foreach ($props as $prop) {
+            unset($this->{$prop});
+        }
+    }
+}

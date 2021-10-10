@@ -1,0 +1,9 @@
+<?php
+
+
+namespace NAMESPACE\Application\Contracts;
+
+
+interface Command
+{
+}

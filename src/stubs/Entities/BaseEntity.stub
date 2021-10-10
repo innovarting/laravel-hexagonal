@@ -1,0 +1,10 @@
+<?php
+
+namespace NAMESPACE\Domain\Entities;
+
+use NAMESPACE\Domain\Entities\Traits\Serializable;
+
+class BaseEntity
+{
+    use Serializable;
+}

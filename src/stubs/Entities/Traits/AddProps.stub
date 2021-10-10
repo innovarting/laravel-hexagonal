@@ -1,0 +1,18 @@
+<?php
+
+namespace NAMESPACE\Domain\Entities\Traits;
+
+trait AddProps
+{
+    public function addProps(array $props): void
+    {
+        foreach ($props as $key => $value) {
+            $this->{$key} = $value;
+        }
+    }
+
+    public function getProperty(string $prop)
+    {
+        return $this->{$prop};
+    }
+}
