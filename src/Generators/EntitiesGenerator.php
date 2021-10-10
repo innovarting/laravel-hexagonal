@@ -10,7 +10,7 @@ class EntitiesGenerator
     public static string $DOMAIN_ENTITIES_FOLDER = 'Entities';
     public static string $DOMAIN_ENTITIES_TRAITS_FOLDER = 'Traits';
 
-    public function __construct(private string $nameSpaceFolder)
+    public function __construct(private string $nameSpaceFolder, private string $nameSpace)
     {
 
         $this->createEntitiesFolder(
@@ -44,7 +44,7 @@ class EntitiesGenerator
             }
 
             $content = $entitiesFile->getContents();
-            $replace = config('hexagonal.namespace');
+            $replace = $this->nameSpace;
             $content = preg_replace('/\bNAMESPACE\b/', $replace, $content);
             File::put($newFile, $content);
         }

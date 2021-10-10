@@ -86,7 +86,7 @@ class HexagonalInstallCommand extends Command
         $this->info("Finished");
 
         $this->info('Create domain entities structure...');
-        new EntitiesGenerator($this->nameSpaceFolder);
+        new EntitiesGenerator($this->nameSpaceFolder, $this->nameSpace);
         $this->info("Finished");
 
         exec('composer dump-autoload', $output);
