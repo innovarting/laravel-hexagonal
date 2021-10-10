@@ -57,7 +57,7 @@ All files and folders found in the app folder will be moved to the Infrastructur
 - [ ] Add custom Container Class
 - [ ] Add binding for a CommandBus and Container Class
 - [ ] Add Contracts folder inside Domain folder
-- [ ] Add Repositories foder inside Domain folder
+- [ ] Add Repositories folder inside Domain folder
 
 
 
