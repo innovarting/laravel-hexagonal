@@ -28,11 +28,13 @@ php artisan hexagonal:install -f {NAME_FOLDER} -a {APP_NAMESPACE}
 
 The namespace is automatically added to the `psr-4` key of the compose.json file.
 
+All files and folders found in the app folder will be moved to the Infrastructure folder found inside the folder defined in the `--folder` option of the package installation command.
+
 ---
 
-### Estructura de archivos
+### File structure created by the package
 
-- Core
+- App Folder Name
     - Application
     - Domain
         - Entities
@@ -48,13 +50,16 @@ The namespace is automatically added to the `psr-4` key of the compose.json file
         - Http
         - Models
         - Providers
-
 ### Todo List
 
 - [ ] Add CommandBus Contract
 - [ ] Add Command and Handler Interface for UseCases
 - [ ] Add custom Container Class
 - [ ] Add binding for a CommandBus and Container Class
+- [ ] Add Contracts folder inside Domain folder
+- [ ] Add Repositories foder inside Domain folder
+
+
 
 [ico-version]: https://img.shields.io/packagist/v/innovartingsas/laravel-hexagonal.svg?style=flat-square
 
