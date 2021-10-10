@@ -68,3 +68,8 @@ All files and folders found in the app folder will be moved to the Infrastructur
 [ico-downloads]: https://img.shields.io/packagist/dt/innovartingsas/laravel-hexagonal.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/innovartingsas/laravel-hexagonal
+
+
+## License
+
+The Laravel Hexagonal Package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
