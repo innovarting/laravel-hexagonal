@@ -58,38 +58,34 @@ class HexagonalInstallCommand extends Command
 
         $this->info("Creating Application folder structure");
         $this->createFolder(self::$APPLICATION_FOLDER);
-        $this->info("Finished");
 
         $this->info("Creating Domain folder structure");
         $this->createFolder(self::$DOMAIN_FOLDER);
-        $this->info("Finished");
 
         $this->info("Creating Infrastructure folder structure");
         $this->createFolder(self::$INFRASTRUCTURE_FOLDER);
-        $this->info("Finished");
 
         $this->info("Creating Application files structure");
         $this->crateApplicationFile();
-        $this->info("Finished");
 
         $this->info("Coping App Folders to new NameSpace files structure");
         $this->copyAppFolderToNameSpace();
-        $this->info("Finished");
 
         $this->info("Copy Commands for artisan laravel commands");
         $this->copyApplicationCommands();
-        $this->info("Finished");
 
         $this->info("Copy app stub file");
         $this->editAppFile();
         $this->editComposerFile($this->nameSpace);
-        $this->info("Finished");
 
         $this->info('Create domain entities structure...');
         new EntitiesGenerator($this->nameSpaceFolder, $this->nameSpace);
-        $this->info("Finished");
 
-        exec('composer dump-autoload', $output);
+        $proc = popen('composer dump-autoload', 'r');
+        while (!feof($proc)) {
+            echo fread($proc, 4096);
+            @ flush();
+        }
     }
 
     private function copyAppFolderToNameSpace()
