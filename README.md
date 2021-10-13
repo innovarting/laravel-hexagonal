@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Software License][ico-license]](LICENSE)
 
 Laravel package that allows modifying the folder structure proposed by Laravel in its initial installation by a
 structure based on **Hexagonal Architecture**.
@@ -63,12 +64,12 @@ All files and folders found in the app folder will be moved to the Infrastructur
 
 
 [ico-version]: https://img.shields.io/packagist/v/innovartingsas/laravel-hexagonal.svg?style=flat-square
-
+[ico-laravel-version]: https://img.shields.io/packagist/v/laravel/laravel.svg?style=flat-square
+[link-laravel-downloads]: https://packagist.org/packages/laravel/laravel
 [link-downloads]: https://packagist.org/packages/innovartingsas/laravel-hexagonal
-
 [ico-downloads]: https://img.shields.io/packagist/dt/innovartingsas/laravel-hexagonal.svg?style=flat-square
-
 [link-packagist]: https://packagist.org/packages/innovartingsas/laravel-hexagonal
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 
 
 ## License
