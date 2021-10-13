@@ -1,0 +1,23 @@
+<?php
+
+namespace NAMESPACE\Infrastructure\Providers;
+
+use NAMESPACE\Application\Contracts\Bus\CommandBus;
+use NAMESPACE\Application\Contracts\Bus\Container;
+use NAMESPACE\Infrastructure\Bus\NAMESPACEContainer;
+use NAMESPACE\Infrastructure\Bus\SimpleCommandBus;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        $this->app->bind(CommandBus::class, SimpleCommandBus::class);
+        $this->app->bind(Container::class, NAMESPACEContainer::class);
+    }
+
+    public function boot()
+    {
+        //
+    }
+}

@@ -5,6 +5,7 @@ namespace Innovarting\Hexagonal\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Innovarting\Hexagonal\Generators\CommandBusGenerator;
 use Innovarting\Hexagonal\Generators\EntitiesGenerator;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -80,6 +81,9 @@ class HexagonalInstallCommand extends Command
 
         $this->info('Create domain entities structure...');
         new EntitiesGenerator($this->nameSpaceFolder, $this->nameSpace);
+
+        $this->info('Creating Contracts for command bus');
+        new CommandBusGenerator($this->nameSpaceFolder, $this->nameSpace);
 
         $proc = popen('composer dump-autoload', 'r');
         while (!feof($proc)) {

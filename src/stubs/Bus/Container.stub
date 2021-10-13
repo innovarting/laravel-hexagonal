@@ -1,0 +1,23 @@
+<?php
+
+namespace NAMESPACE\Infrastructure\Bus;
+
+use NAMESPACE\Application\Contracts\Bus\Container;
+use Illuminate\Container\Container as IoC;
+use Illuminate\Contracts\Container\BindingResolutionException;
+
+class NAMESPACEContainer implements Container
+{
+    private IoC $container;
+
+    public function __construct(IoC $container)
+    {
+        $this->container = $container;
+    }
+
+    /** @throws BindingResolutionException */
+    public function make($class): object
+    {
+        return $this->container->make($class);
+    }
+}
