@@ -52,12 +52,13 @@ All files and folders found in the app folder will be moved to the Infrastructur
         - Providers
 ### Todo List
 
-- [ ] Add CommandBus Contract
-- [ ] Add Command and Handler Interface for UseCases
-- [ ] Add custom Container Class
-- [ ] Add binding for a CommandBus and Container Class
-- [ ] Add Contracts folder inside Domain folder
-- [ ] Add Repositories folder inside Domain folder
+- [X] Add CommandBus Contract
+- [X] Add Command and Handler Interface for UseCases
+- [X] Add custom Container Class
+- [X] Add binding for a CommandBus and Container Class
+- [X] Add Contracts folder inside Domain folder
+- [X] Add Repositories folder inside Domain folder
+- [ ] Add commands for the creation of entities, factories, repositories and use cases. 
 
 
 
