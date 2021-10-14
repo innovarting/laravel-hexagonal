@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Application\Contracts\Command;
+use {{ rootNamespace }}Application\Contracts\Handler;
+use {{ rootNamespace }}Domain\Entities\BaseEntity;
+
+class {{ class }} implements Handler
+{
+
+    public function __construct(private $repository)
+    {
+    }
+
+    public function __invoke(Command $command): BaseEntity|array
+    {
+        // TODO: Add code here
+        return [];
+    }
+}

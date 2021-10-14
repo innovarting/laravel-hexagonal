@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Application\Contracts\Command;
+use {{ rootNamespace }}Domain\Entities\Traits\Serializable;
+
+class {{ class }} implements Command
+{
+    use Serializable;
+
+    public function __construct()
+    {
+    }
+}

@@ -2,12 +2,12 @@
 
 namespace Innovarting\Hexagonal\Console\Commands;
 
-class MakeUseCaseCommand extends BaseGeneratorCommand
+class MakeUseCaseHandlerCommand extends BaseGeneratorCommand
 {
-    protected $signature = 'hexagonal:command {name : Use case name.} {--d|domain= : Specify the name of the folder where the suso case will be created.}';
+    protected $signature = 'hexagonal:handler {name : Use case name.} {--d|domain= : Specify the name of the folder where the suso case will be created.}';
     protected $description = 'Create new command and handler files for the given use case.';
 
-    protected $type = 'Command';
+    protected $type = 'Handler';
 
     public function handle(): bool
     {
@@ -16,14 +16,8 @@ class MakeUseCaseCommand extends BaseGeneratorCommand
             return false;
         }
 
-        $className = $this->getNameInput() . 'Command';
-
+        $className = $this->getNameInput() . 'Handler';
         $this->makeClass($className);
-
-        $this->call('hexagonal:handler', array_filter([
-            'name'     => $this->getNameInput(),
-            '--domain' => $this->option('domain'),
-        ]));
 
         return true;
     }
@@ -36,6 +30,6 @@ class MakeUseCaseCommand extends BaseGeneratorCommand
 
     protected function getStub(): string
     {
-        return __DIR__ . '/../../stubs/UseCases/Command.php.stub';
+        return __DIR__ . '/../../stubs/UseCases/Handler.php.stub';
     }
 }

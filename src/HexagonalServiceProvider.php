@@ -5,8 +5,12 @@ namespace Innovarting\Hexagonal;
 use Illuminate\Support\ServiceProvider;
 use Innovarting\Hexagonal\Console\Commands\HexagonalInstallCommand;
 use Innovarting\Hexagonal\Console\Commands\MakeEntityCommand;
+use Innovarting\Hexagonal\Console\Commands\MakeEntityFactoryCommand;
+use Innovarting\Hexagonal\Console\Commands\MakeFactoryCommand;
+use Innovarting\Hexagonal\Console\Commands\MakeInterfaceRepositoryCommand;
+use Innovarting\Hexagonal\Console\Commands\MakeRepositoryCommand;
 use Innovarting\Hexagonal\Console\Commands\MakeUseCaseCommand;
-use Innovarting\Hexagonal\Console\Commands\MakeUseCaseTestCommand;
+use Innovarting\Hexagonal\Console\Commands\MakeUseCaseHandlerCommand;
 
 class HexagonalServiceProvider extends ServiceProvider
 {
@@ -15,8 +19,11 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->commands([
             HexagonalInstallCommand::class,
             MakeUseCaseCommand::class,
-            MakeUseCaseTestCommand::class,
+            MakeUseCaseHandlerCommand::class,
             MakeEntityCommand::class,
+            MakeFactoryCommand::class,
+            MakeInterfaceRepositoryCommand::class,
+            MakeRepositoryCommand::class,
         ]);
     }
 

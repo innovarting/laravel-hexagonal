@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Domain\Contracts\BaseFactory;
+use {{ rootNamespace }}Domain\Entities\EntityId;
+use JetBrains\PhpStorm\Pure;
+
+class {{ class }} extends BaseFactory
+{
+    #[Pure]
+    static function create(array $attributes): {{ name }}Entity
+    {
+        return new {{ name }}Entity(
+            id: new EntityId($attributes['id'])
+        );
+    }
+}

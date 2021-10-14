@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Domain\Repositories\I{{ name }}Repository;
+use {{ rootNamespace }}Infrastructure\Eloquent\Models\{{ name }};
+
+class CandidateRepository implements I{{ name }}Repository
+{
+    public function __construct(private {{ name }} $candidateModel)
+    {
+    }
+}

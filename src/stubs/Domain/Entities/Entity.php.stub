@@ -1,0 +1,23 @@
+<?php
+
+namespace {{namespace}};
+
+use {{ rootNamespace }}Domain\Entities\EntityId;
+use {{ rootNamespace }}Domain\Entities\BaseEntity;
+use JetBrains\PhpStorm\Pure;
+
+class {{ class }} extends BaseEntity
+{
+
+    public function __construct(
+        private EntityId $id,
+    )
+    {
+    }
+
+    #[Pure]
+    public function getId(): string
+    {
+        return $this->id->value();
+    }
+}
