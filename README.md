@@ -51,6 +51,7 @@ All files and folders found in the app folder will be moved to the Infrastructur
         - Http
         - Models
         - Providers
+        
 ### Todo List
 
 - [X] Add CommandBus Contract
@@ -59,7 +60,7 @@ All files and folders found in the app folder will be moved to the Infrastructur
 - [X] Add binding for a CommandBus and Container Class
 - [X] Add Contracts folder inside Domain folder
 - [X] Add Repositories folder inside Domain folder
-- [ ] Add commands for the creation of entities, factories, repositories and use cases. 
+- [X] Add commands for the creation of entities, factories, repositories and use cases. 
 
 
 
