@@ -4,10 +4,12 @@ namespace {{namespace}};
 
 use {{ rootNamespace }}Domain\Entities\EntityId;
 use {{ rootNamespace }}Domain\Entities\BaseEntity;
+use {{ rootNamespace }}Domain\Entities\Traits\Serializable;
 use JetBrains\PhpStorm\Pure;
 
 class {{ class }} extends BaseEntity
 {
+    use Serializable;
 
     public function __construct(
         private EntityId $id,
