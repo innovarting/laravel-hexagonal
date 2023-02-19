@@ -15,8 +15,8 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "laravel/framework": "^9.0",
+        "php": "^7.3|^8.0|^8.2",
+        "laravel/framework": "^9.0|^10.0",
         "ext-json": "*"
     },
     "autoload": {
